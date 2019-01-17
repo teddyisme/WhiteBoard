@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/tools"
+        android:id="@+id/mRootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.lixs.wblib.DrawTextBoard
+            android:id="@+id/drawBoard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <com.lixs.floatbutton.FloatingActionsMenu
+            android:id="@+id/fabMenuSize"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            fab:fab_addButtonHeight="30dp"
+            app:fab_addButtonBackground="@drawable/white_board_pen_selector"
+            fab:fab_addButtonWidth="30dp"
+            fab:fab_buttonSpacing="12dp"
+            fab:fab_expandDirection="up"
+            app:fab_addButtonStyle="customStyle"
+            app:fab_labelStyle="@style/menu_labels_style">
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeLarge"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeBig"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeMiddle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeMini"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+    </com.lixs.floatbutton.FloatingActionsMenu>
+
+    <com.lixs.floatbutton.FloatingActionsMenu
+            android:id="@+id/fabMenuColor"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
+            fab:fab_addButtonHeight="30dp"
+            app:fab_addButtonBackground="@drawable/white_board_color_black_selector"
+            fab:fab_addButtonWidth="30dp"
+            fab:fab_buttonSpacing="12dp"
+            fab:fab_expandDirection="up"
+            app:fab_addButtonStyle="customStyle"
+            app:fab_labelStyle="@style/menu_labels_style">
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeRed"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeGreen"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeBlue"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btSizeBlack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+    </com.lixs.floatbutton.FloatingActionsMenu>
+
+    <com.lixs.floatbutton.FloatingActionsMenu
+            android:id="@+id/fabMenuEraser"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="124dp"
+            android:layout_marginStart="124dp"
+            fab:fab_addButtonHeight="30dp"
+            app:fab_addButtonBackground="@drawable/white_board_eraser_selector"
+            fab:fab_addButtonWidth="30dp"
+            fab:fab_buttonSpacing="12dp"
+            fab:fab_expandDirection="up"
+            app:fab_addButtonStyle="customStyle"
+            app:fab_labelStyle="@style/menu_labels_style">
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btEraserLarge"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btEraserBig"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btEraserMiddle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+        <com.lixs.floatbutton.FloatingImageButton
+                android:id="@+id/btEraserMini"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/white_board_drable_back_normal"/>
+
+    </com.lixs.floatbutton.FloatingActionsMenu>
+
+    <com.lixs.floatbutton.FloatingImageButton
+            android:id="@+id/btReset"
+            android:layout_width="28dp"
+            android:layout_height="26dp"
+            android:background="@drawable/ico_reset"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"/>
+
+    <com.lixs.floatbutton.FloatingImageButton
+            android:id="@+id/btLeftBack"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/ico_left_back"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="120dp"
+            android:layout_marginEnd="120dp"/>
+
+    <com.lixs.floatbutton.FloatingImageButton
+            android:id="@+id/btRightBack"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/ico_right_back"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="68dp"
+            android:layout_marginEnd="68dp"/>
+</FrameLayout>
