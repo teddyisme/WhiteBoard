@@ -2,17 +2,30 @@ package com.lixs.whiteboard.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.lixs.floatbutton.FloatingActionsMenu
 import com.lixs.wblib.DimenUtils
 import com.lixs.wblib.DrawTextBoard
+import com.lixs.whiteboard.R
+import com.lixs.whiteboard.base.BaseActivity
 import com.lixs.whiteboard.modle.DrawEraserSize
 import com.lixs.whiteboard.modle.DrawPenSize
-import com.lixs.whiteboard.R
+import com.lixs.whiteboard.views.MyDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+/**
+ * 画板页面
+ */
+class MainActivity : BaseActivity(), View.OnClickListener {
+    override fun initView(savedInstanceState: Bundle?): Int {
+        return R.layout.activity_main
+    }
+
+    override fun doSomething() {
+        initFloatButtons()
+    }
+
     private var mCurrentSize = DrawPenSize.BIG.size
     private var mCurrentEraserSize = DrawPenSize.BIG.size
     private var mCurrentColor = -1
@@ -111,13 +124,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 drawRing(fabMenuEraser)
             }
             R.id.btReset -> {
-                drawBoard.clearAll()
+                AlertDialog.Builder(this)
+                    .setMessage("确定清除画布吗?")
+                    .setTitle("提示")
+                    .setPositiveButton("確定") { _, _ ->
+                        drawBoard.clearAll()
+                    }
+                    .setNeutralButton("取消", null)
+                    .create()
+                    .show()
             }
             R.id.btLeftBack -> {
                 drawBoard.backStep()
             }
             R.id.btRightBack -> {
                 drawBoard.forWordStep()
+            }
+            //选择背景
+            R.id.btSelectBg -> {
+                MyDialog.instance()
+                    .setListener(object : MyDialog.DialogListener {
+                        override fun onClickColor(color: Int) {
+                            drawBoard.setDrawBoardBgColor(color)
+                        }
+                    })
+                    .showNow(supportFragmentManager, "")
             }
         }
 
@@ -133,30 +164,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         menu.drawRing(ContextCompat.getColor(this, R.color.gray))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initFloatButtons()
-    }
-
     private fun initFloatButtons() {
         //笔触粗细
         btSizeLarge.drawCircle(
-            DrawPenSize.LARGE.size.toInt(), ContextCompat.getColor(this,
+            DrawPenSize.LARGE.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
         btSizeBig.drawCircle(
-            DrawPenSize.BIG.size.toInt(), ContextCompat.getColor(this,
+            DrawPenSize.BIG.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
         btSizeMiddle.drawCircle(
-            DrawPenSize.MIDDLE.size.toInt(), ContextCompat.getColor(this,
+            DrawPenSize.MIDDLE.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
         btSizeMini.drawCircle(
-            DrawPenSize.SMALL.size.toInt(), ContextCompat.getColor(this,
+            DrawPenSize.SMALL.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
 
         //笔触颜色
         btSizeRed.drawCircle(DimenUtils.dp2pxInt(20f), ContextCompat.getColor(this, R.color.red))
@@ -165,21 +198,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btSizeBlack.drawCircle(DimenUtils.dp2pxInt(20f), ContextCompat.getColor(this, R.color.black))
         //橡皮尺寸
         btEraserLarge.drawCircle(
-            DrawEraserSize.LARGE.size.toInt(), ContextCompat.getColor(this,
+            DrawEraserSize.LARGE.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
         btEraserBig.drawCircle(
-            DrawEraserSize.BIG.size.toInt(), ContextCompat.getColor(this,
+            DrawEraserSize.BIG.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
         btEraserMiddle.drawCircle(
-            DrawEraserSize.MIDDLE.size.toInt(), ContextCompat.getColor(this,
+            DrawEraserSize.MIDDLE.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
         btEraserMini.drawCircle(
-            DrawEraserSize.SMALL.size.toInt(), ContextCompat.getColor(this,
+            DrawEraserSize.SMALL.size.toInt(), ContextCompat.getColor(
+                this,
                 R.color.black
-            ))
+            )
+        )
 
         initButtonsListeners()
     }
@@ -189,6 +230,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      */
     private fun initButtonsListeners() {
         drawBoard.setPaintColor(ContextCompat.getColor(this, R.color.black))
+        drawRing(fabMenuSize)
+
         btSizeLarge.setOnClickListener(this)
         btSizeBig.setOnClickListener(this)
         btSizeMiddle.setOnClickListener(this)
@@ -203,6 +246,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btEraserBig.setOnClickListener(this)
         btEraserMiddle.setOnClickListener(this)
         btEraserMini.setOnClickListener(this)
+
+        btSelectBg.setOnClickListener(this)
 
         btReset.setOnClickListener(this)
         btLeftBack.setOnClickListener(this)

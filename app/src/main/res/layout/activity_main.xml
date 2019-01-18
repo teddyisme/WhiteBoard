@@ -139,6 +139,25 @@
     </com.lixs.floatbutton.FloatingActionsMenu>
 
     <LinearLayout
+            android:id="@+id/btSelectBg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="178dp"
+            android:layout_marginStart="178dp"
+            android:gravity="center_horizontal|bottom"
+            android:orientation="vertical">
+
+        <ImageView
+                android:id="@+id/btSelectBgIv"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/ico_bg"/>
+
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/btReset"
             android:layout_width="40dp"
             android:layout_height="40dp"

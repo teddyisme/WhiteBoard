@@ -13,4 +13,12 @@
     <color name="translate">#00000000</color>
     <color name="gray">#8a8a8a</color>
 
+    <color name="drawBoard1">#EF9A9A</color>
+    <color name="drawBoard2">#B39DDB</color>
+    <color name="drawBoard3">#90CAF9</color>
+    <color name="drawBoard4">#80CBC4</color>
+    <color name="drawBoard5">#A5D6A7</color>
+    <color name="drawBoard6">#E6EE9C</color>
+    <color name="drawBoard7">#FFD54F</color>
+
 </resources>

@@ -22,7 +22,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
     private var mRemoveDraws = mutableListOf<DrawInfo>()
 
     private var mDrawType = DrawType.DRAW
-
+    private var mCurrentBoardColor = Color.WHITE
 
     class DrawInfo(val path: Path, val paint: Paint, val drawType: DrawType) {
         fun draw(mCanvas: Canvas) {
@@ -125,17 +125,6 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         return paint
     }
 
-    private fun getBgPaint(): Paint {
-        val paint = Paint()
-        paint.isAntiAlias = true
-        paint.isDither = true
-        paint.isSubpixelText = true
-        paint.style = Paint.Style.FILL
-        paint.isFilterBitmap = true
-        paint.color = ContextCompat.getColor(context, R.color.white)
-        return paint
-    }
-
     /**
      * 设置画笔粗细
      */
@@ -209,10 +198,19 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
      * 重新绘画文字
      */
     private fun reDraw() {
-        mBufferBitmap?.eraseColor(Color.WHITE)
+        mBufferBitmap?.eraseColor(mCurrentBoardColor)
         for (drawingInfo in mDrawings) {
             drawingInfo.draw(mBufferCanvas!!)
         }
+        invalidate()
+    }
+
+    /**
+     * 设置画板背景颜色
+     */
+    fun setDrawBoardBgColor(color: Int) {
+        mCurrentBoardColor = ContextCompat.getColor(context, color)
+        reDraw()
         invalidate()
     }
 }
