@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 
+
 class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var mPaint: Paint = getPaint()
@@ -17,6 +18,18 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
     private var mBufferCanvas: Canvas? = null
     private var mBoardListener: DrawBoardListner? = null
 
+    private var mDrawings = mutableListOf<DrawInfo>()
+    private var mRemoveDraws = mutableListOf<DrawInfo>()
+
+    private var mDrawType = DrawType.DRAW
+
+
+    class DrawInfo(val path: Path, val paint: Paint, val drawType: DrawType) {
+        fun draw(mCanvas: Canvas) {
+            mCanvas.drawPath(path, paint)
+        }
+    }
+
     interface DrawBoardListner {
         fun onTouch()
     }
@@ -25,10 +38,14 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
 
     }
 
+    enum class DrawType {
+        DRAW, CLEAR
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         mBufferBitmap?.let {
-            canvas?.drawBitmap(mBufferBitmap, 0f, 0f, null)
+            canvas?.drawBitmap(mBufferBitmap!!, 0f, 0f, null)
         }
     }
 
@@ -54,7 +71,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
                 if (mBufferBitmap == null) {
                     initBuffer()
                 }
-                mBufferCanvas?.drawPath(mPath, mPaint)
+                mBufferCanvas?.drawPath(mPath!!, mPaint)
                 invalidate()
                 mLastX = x
                 mLastY = y
@@ -72,14 +89,20 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
      */
     private fun initBuffer() {
         mBufferBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        mBufferCanvas = Canvas(mBufferBitmap)
+        mBufferCanvas = Canvas(mBufferBitmap!!)
     }
 
     /**
-     * TODO:保存绘画路径
+     * 保存绘画路径
      */
     private fun saveDrawingPath() {
-
+        mPath?.let {
+            val cachePath = Path(mPath)
+            val cachePaint = Paint(mPaint)
+            val drawInfo = DrawInfo(cachePath, cachePaint, mDrawType)
+            mDrawings.add(drawInfo)
+            mRemoveDraws.clear()
+        }
     }
 
     private fun getPaint(): Paint {
@@ -94,6 +117,17 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         paint.strokeJoin = Paint.Join.ROUND
         paint.strokeCap = Paint.Cap.ROUND
         paint.color = ContextCompat.getColor(context, R.color.colorAccent)
+        return paint
+    }
+
+    private fun getBgPaint(): Paint {
+        val paint = Paint()
+        paint.isAntiAlias = true
+        paint.isDither = true
+        paint.isSubpixelText = true
+        paint.style = Paint.Style.FILL
+        paint.isFilterBitmap = true
+        paint.color = ContextCompat.getColor(context, R.color.white)
         return paint
     }
 
@@ -120,7 +154,52 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         mPaint.strokeWidth = size
     }
 
+    /**
+     * 设置画布事件监听
+     */
     fun setDrawBoardListener(listener: DrawBoardListner) {
         this.mBoardListener = listener
+    }
+
+    /**
+     *  清除画布
+     */
+    fun clearAll() {
+        mDrawType = DrawType.CLEAR
+        if (mBufferBitmap == null) {
+            initBuffer()
+        }
+        mBufferCanvas?.drawRect(0f, 0f, width.toFloat(), height.toFloat(), getBgPaint())
+        postInvalidate()
+    }
+
+    /**
+     * 撤销一步
+     */
+    fun backStep() {
+        if (mDrawings.size > 0) {
+            val info = mDrawings.removeAt(mDrawings.size - 1)
+            mRemoveDraws.add(info)
+            reDraw()
+        }
+    }
+
+    /**
+     * 前进一步
+     */
+    fun forWordStep() {
+        if (mRemoveDraws.size > 0) {
+            val info = mRemoveDraws.removeAt(mRemoveDraws.size - 1)
+            mDrawings.add(info)
+            reDraw()
+        }
+    }
+
+    private fun reDraw() {
+        mBufferBitmap?.eraseColor(Color.TRANSPARENT)
+        for (drawingInfo in mDrawings) {
+            drawingInfo.draw(mBufferCanvas!!)
+        }
+        invalidate()
     }
 }

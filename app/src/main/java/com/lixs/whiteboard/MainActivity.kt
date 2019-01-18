@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.lixs.floatbutton.FloatingActionsMenu
 import com.lixs.wblib.DimenUtils
 import com.lixs.wblib.DrawTextBoard
 import kotlinx.android.synthetic.main.activity_main.*
@@ -75,6 +74,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 fabMenuEraser.collapse()
                 drawBoard.setPaintEraser(mCurrentEraserSize)
             }
+            R.id.btReset -> {
+                drawBoard.clearAll()
+            }
+            R.id.btLeftBack -> {
+                drawBoard.backStep()
+            }
+            R.id.btRightBack -> {
+                drawBoard.forWordStep()
+            }
         }
 
     }
@@ -110,7 +118,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * 初始化按钮的监听事件
      */
     private fun initButtonsListeners() {
-        drawBoard.setPaintColor(ContextCompat.getColor(this,R.color.black))
+        drawBoard.setPaintColor(ContextCompat.getColor(this, R.color.black))
         btSizeLarge.setOnClickListener(this)
         btSizeBig.setOnClickListener(this)
         btSizeMiddle.setOnClickListener(this)
@@ -125,6 +133,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btEraserBig.setOnClickListener(this)
         btEraserMiddle.setOnClickListener(this)
         btEraserMini.setOnClickListener(this)
+
+        btReset.setOnClickListener(this)
+        btLeftBack.setOnClickListener(this)
+        btRightBack.setOnClickListener(this)
         //重新监听按钮的点击
         fabMenuColor.setOnFloatingActionsMenuClickListener {
             if (fabMenuColor.isExpanded) {
@@ -153,7 +165,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             fabMenuSize.collapse()
             fabMenuColor.collapse()
         }
-        drawBoard.setDrawBoardListener(object : DrawTextBoard.DrawBoardListner{
+        drawBoard.setDrawBoardListener(object : DrawTextBoard.DrawBoardListner {
             override fun onTouch() {
                 fabMenuSize.collapse()
                 fabMenuColor.collapse()

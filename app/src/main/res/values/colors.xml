@@ -10,5 +10,6 @@
     <color name="green">#009688</color>
     <color name="blue">#2196F3</color>
     <color name="black">#000000</color>
+    <color name="translate">#00000000</color>
 
 </resources>
