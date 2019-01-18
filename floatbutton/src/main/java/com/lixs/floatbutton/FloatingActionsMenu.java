@@ -104,7 +104,7 @@ public class FloatingActionsMenu extends ViewGroup {
      * */
     /**控制按钮外圈*/
     public void drawRing(int color){
-       mAddButton.drawRing(DimenUtils.dp2pxInt(3), color);
+       mAddButton.drawRing(DimenUtils.dp2pxInt(4), color);
     }
     /**
      * 清除绘画

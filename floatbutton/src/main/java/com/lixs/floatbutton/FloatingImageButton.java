@@ -76,10 +76,12 @@ public class FloatingImageButton extends AppCompatImageButton {
     public void drawRing(int size, int color) {
         mPaint.setColor(color);
         mPaint.setStrokeWidth(size);
-        mPaint.setStyle(Paint.Style.STROKE); //绘制空心圆
+        mPaint.setStyle(Paint.Style.FILL); //绘制空心圆
         mDrawType = DRAW_RING;
         postInvalidate();
     }
+
+
     /**
      * 在图片中间画圆
      * @param size  圆的半径
@@ -129,14 +131,14 @@ public class FloatingImageButton extends AppCompatImageButton {
         super.onDraw(canvas);
         int center = getWidth() / 2;
         if (mDrawType == DRAW_RING) {
-            canvas.drawCircle(center, center, center - mPaint.getStrokeWidth(), mPaint);
+            canvas.drawCircle(mPaint.getStrokeWidth() / 2, mPaint.getStrokeWidth() / 2, mPaint.getStrokeWidth() / 2, mPaint);
         } else if (mDrawType == DRAW_CIRCLE) {
             canvas.drawCircle(center, center, mPaint.getStrokeWidth(), mPaint);
         } else if (mDrawType == DRAW_CIRCLE_AND_RING) {
             canvas.drawCircle(center, center, mPaint.getStrokeWidth(), mPaint);
             mPaint.setStrokeWidth(DimenUtils.dp2pxInt(1));
             mPaint.setStyle(Paint.Style.STROKE); //绘制空心圆
-            canvas.drawCircle(center, center, center -DimenUtils.dp2pxInt(1), mPaint);
+            canvas.drawCircle(center, center, center - DimenUtils.dp2pxInt(1), mPaint);
         }
 
 

@@ -3,6 +3,7 @@ package com.lixs.whiteboard
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.lixs.whiteboard.utils.setCurrentActivity
 import java.util.*
 
 

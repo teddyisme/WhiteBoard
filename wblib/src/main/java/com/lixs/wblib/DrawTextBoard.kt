@@ -16,7 +16,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
     private var mLastY: Float = 0f
     private var mBufferBitmap: Bitmap? = null
     private var mBufferCanvas: Canvas? = null
-    private var mBoardListener: DrawBoardListner? = null
+    private var mBoardListener: DrawBoardListener? = null
 
     private var mDrawings = mutableListOf<DrawInfo>()
     private var mRemoveDraws = mutableListOf<DrawInfo>()
@@ -30,12 +30,16 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         }
     }
 
-    interface DrawBoardListner {
+    interface DrawBoardListener {
         fun onTouch()
+        fun onUndo(canLeft: Boolean, canRight: Boolean)
+        fun onForward(canLeft: Boolean, canRight: Boolean)
+        fun onClear()
+        fun onOnePathComplate(canLeft: Boolean, canRight: Boolean)
     }
 
     init {
-
+        setBackgroundResource(R.color.white)
     }
 
     enum class DrawType {
@@ -79,6 +83,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
             MotionEvent.ACTION_UP -> {
                 saveDrawingPath()
                 mPath?.reset()
+                mBoardListener?.onOnePathComplate(mDrawings.size > 0, mRemoveDraws.size > 0)
             }
         }
         return true
@@ -157,7 +162,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
     /**
      * 设置画布事件监听
      */
-    fun setDrawBoardListener(listener: DrawBoardListner) {
+    fun setDrawBoardListener(listener: DrawBoardListener) {
         this.mBoardListener = listener
     }
 
@@ -169,8 +174,11 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         if (mBufferBitmap == null) {
             initBuffer()
         }
-        mBufferCanvas?.drawRect(0f, 0f, width.toFloat(), height.toFloat(), getBgPaint())
+        mBufferBitmap?.eraseColor(Color.WHITE)
+        mRemoveDraws.clear()
+        mDrawings.clear()
         postInvalidate()
+        mBoardListener?.onClear()
     }
 
     /**
@@ -182,6 +190,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
             mRemoveDraws.add(info)
             reDraw()
         }
+        mBoardListener?.onUndo(mDrawings.size > 0, mRemoveDraws.size > 0)
     }
 
     /**
@@ -193,10 +202,14 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
             mDrawings.add(info)
             reDraw()
         }
+        mBoardListener?.onForward(mDrawings.size > 0, mRemoveDraws.size > 0)
     }
 
+    /**
+     * 重新绘画文字
+     */
     private fun reDraw() {
-        mBufferBitmap?.eraseColor(Color.TRANSPARENT)
+        mBufferBitmap?.eraseColor(Color.WHITE)
         for (drawingInfo in mDrawings) {
             drawingInfo.draw(mBufferCanvas!!)
         }

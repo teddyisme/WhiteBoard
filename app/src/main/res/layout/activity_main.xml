@@ -138,36 +138,60 @@
 
     </com.lixs.floatbutton.FloatingActionsMenu>
 
-    <com.lixs.floatbutton.FloatingImageButton
+    <LinearLayout
             android:id="@+id/btReset"
-            android:layout_width="28dp"
-            android:layout_height="26dp"
-            android:background="@drawable/ico_reset"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|bottom"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="16dp"
-            android:padding="6dp"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
 
-    <com.lixs.floatbutton.FloatingImageButton
+        <ImageView
+                android:id="@+id/btResetIv"
+                android:layout_width="28dp"
+                android:layout_height="26dp"
+                android:background="@drawable/ico_reset"/>
+
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/btLeftBack"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/ico_left_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|bottom"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="10dp"
-            android:padding="6dp"
             android:layout_marginRight="120dp"
-            android:layout_marginEnd="120dp"/>
+            android:layout_marginEnd="120dp"
+            android:orientation="vertical">
 
-    <com.lixs.floatbutton.FloatingImageButton
+        <ImageView
+                android:id="@+id/btLeftBackIv"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="@drawable/ico_left_back_disadble"/>
+
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/btRightBack"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/ico_right_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|bottom"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="68dp"
-            android:padding="6dp"
-            android:layout_marginEnd="68dp"/>
+            android:layout_marginEnd="68dp"
+            android:orientation="vertical">
+
+        <ImageView
+                android:id="@+id/btRightBackIv"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="@drawable/ico_right_back_disadble"/>
+
+    </LinearLayout>
 </FrameLayout>

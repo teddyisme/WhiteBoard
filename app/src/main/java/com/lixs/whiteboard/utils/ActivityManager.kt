@@ -1,4 +1,4 @@
-package com.lixs.whiteboard
+package com.lixs.whiteboard.utils
 
 import android.app.Activity
 import java.lang.ref.WeakReference

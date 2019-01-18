@@ -1,4 +1,4 @@
-package com.lixs.whiteboard
+package com.lixs.whiteboard.modle
 
 import com.lixs.wblib.DimenUtils
 
