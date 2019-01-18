@@ -11,11 +11,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.lixs.whiteboard.R
 import com.lixs.whiteboard.base.BaseAdapter
-import kotlinx.android.synthetic.main.dialog_my.view.*
+import kotlinx.android.synthetic.main.dialog_select_color.view.*
 import kotlinx.android.synthetic.main.item_bg_color.view.*
 
 
-class MyDialog : DialogFragment() {
+class SelectColorDialog : DialogFragment() {
     private var mContext: Context? = null
 
     private var mListener: DialogListener? = null
@@ -43,7 +43,7 @@ class MyDialog : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE) //无标题
-        val view = inflater.inflate(R.layout.dialog_my, container)
+        val view = inflater.inflate(R.layout.dialog_select_color, container)
         view.listView.apply {
             adapter = BaseAdapter(R.layout.item_bg_color, mColors) { view, item, _ ->
                 view.viewPie.setBackgroundResource(item)
@@ -65,14 +65,14 @@ class MyDialog : DialogFragment() {
         dialog?.window?.setLayout((dm.widthPixels * 0.75).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    fun setListener(listener: DialogListener): MyDialog {
+    fun setListener(listener: DialogListener): SelectColorDialog {
         this.mListener = listener
         return this
     }
 
     companion object {
-        fun instance(): MyDialog {
-            return MyDialog()
+        fun instance(): SelectColorDialog {
+            return SelectColorDialog()
         }
     }
 }

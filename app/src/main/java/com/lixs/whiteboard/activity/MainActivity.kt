@@ -11,7 +11,7 @@ import com.lixs.whiteboard.R
 import com.lixs.whiteboard.base.BaseActivity
 import com.lixs.whiteboard.modle.DrawEraserSize
 import com.lixs.whiteboard.modle.DrawPenSize
-import com.lixs.whiteboard.views.MyDialog
+import com.lixs.whiteboard.views.SelectColorDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -125,7 +125,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.btReset -> {
                 AlertDialog.Builder(this)
-                    .setMessage("确定清除画布吗?")
+                    .setMessage("确定清空画布吗?")
                     .setTitle("提示")
                     .setPositiveButton("確定") { _, _ ->
                         drawBoard.clearAll()
@@ -142,8 +142,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
             //选择背景
             R.id.btSelectBg -> {
-                MyDialog.instance()
-                    .setListener(object : MyDialog.DialogListener {
+                SelectColorDialog.instance()
+                    .setListener(object : SelectColorDialog.DialogListener {
                         override fun onClickColor(color: Int) {
                             drawBoard.setDrawBoardBgColor(color)
                         }
@@ -154,16 +154,25 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    /**
+     * 還原按鈕的狀態
+     */
     private fun resetButtons() {
         fabMenuEraser.clearDraw()
         fabMenuColor.clearDraw()
         fabMenuSize.clearDraw()
     }
 
+    /**
+     * 按钮左上角画小圆点
+     */
     private fun drawRing(menu: FloatingActionsMenu) {
         menu.drawRing(ContextCompat.getColor(this, R.color.gray))
     }
 
+    /**
+     * 初始化展开按钮
+     */
     private fun initFloatButtons() {
         //笔触粗细
         btSizeLarge.drawCircle(
@@ -306,6 +315,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         })
     }
 
+    /**
+     * 设置返回和前进按钮的状态
+     */
     private fun checkRedoBtStatus(canLeft: Boolean, canRight: Boolean) {
         if (canLeft) {
             btLeftBackIv.setBackgroundResource(R.drawable.ico_left_back)

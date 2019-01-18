@@ -62,6 +62,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         val y = event.y
         when (action) {
             MotionEvent.ACTION_DOWN -> {
+                mRemoveDraws.clear()
                 mLastX = x
                 mLastY = y
                 if (mPath == null) {
@@ -163,7 +164,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
         if (mBufferBitmap == null) {
             initBuffer()
         }
-        mBufferBitmap?.eraseColor(Color.WHITE)
+        mBufferBitmap?.eraseColor(mCurrentBoardColor)
         mRemoveDraws.clear()
         mDrawings.clear()
         postInvalidate()
@@ -209,6 +210,7 @@ class DrawTextBoard(context: Context?, attrs: AttributeSet?) : View(context, att
      * 设置画板背景颜色
      */
     fun setDrawBoardBgColor(color: Int) {
+        setBackgroundResource(color)
         mCurrentBoardColor = ContextCompat.getColor(context, color)
         reDraw()
         invalidate()
